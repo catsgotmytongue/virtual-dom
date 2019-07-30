@@ -241,19 +241,30 @@ var _mount = _interopRequireDefault(require("./mount"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // article originally at https://dev.to/ycmjason/building-a-simple-virtual-dom-from-scratch-3d05#background-what-is-virtual-dom
-var vApp = (0, _createElement.default)('div', {
-  attrs: {
-    id: 'app'
-  },
-  children: ['Hello!', (0, _createElement.default)('img', {
+var createVApp = function createVApp(count) {
+  return (0, _createElement.default)('div', {
     attrs: {
-      src: 'https://media.giphy.com/media/cuPm4p4pClZVC/giphy.gif'
-    }
-  })]
-});
+      id: 'app',
+      dataCount: count // we use the count here
+
+    },
+    children: ['The current count is: ', String(count), // and here
+    (0, _createElement.default)('img', {
+      attrs: {
+        src: 'https://media.giphy.com/media/cuPm4p4pClZVC/giphy.gif'
+      }
+    })]
+  });
+};
+
+var count = 0;
+var vApp = createVApp(count);
 var $app = (0, _render.default)(vApp);
-console.log(vApp);
-(0, _mount.default)($app, document.getElementById('app'));
+var $rootEl = (0, _mount.default)($app, document.getElementById('app'));
+setInterval(function () {
+  count++;
+  $rootEl = (0, _mount.default)((0, _render.default)(createVApp(count)), $rootEl);
+}, 1000);
 },{"./createElement":"createElement.js","./render":"render.js","./mount":"mount.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
