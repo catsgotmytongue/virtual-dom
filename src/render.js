@@ -1,4 +1,6 @@
-const renderElem = ({ tagName, attrs, children}) => {
+const renderElem = ({tagName, attrs, children}) => {
+  
+  console.log('renderElem: %o',arguments)
   // create the element
   //   e.g. <div></div>
   const $el = document.createElement(tagName);
